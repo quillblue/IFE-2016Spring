@@ -1,0 +1,24 @@
+.greyBox{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -100px 0 0 -200px;
+	overflow: hidden;
+	width: 400px; 
+	height: 200px;
+	background-color:#ccc;
+}
+.yellowCircle{
+	position:absolute;
+	width: 0px;
+	border-radius: 50px;
+	border: 50px solid #fc0;
+}
+#yellowCircle1{
+	top:-50px;
+	left:-50px;
+}
+#yellowCircle2{
+	right:-50px;
+	bottom:-50px;
+}
