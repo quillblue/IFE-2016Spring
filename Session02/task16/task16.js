@@ -1,28 +1,33 @@
-/**
- * aqiData，存储用户输入的空气指数数据
- * 示例格式：
- * aqiData = {
- *    "北京": 90,
- *    "上海": 40
- * };
- */
-var aqiData = {};
+//存储用户输入的空气指数数据
+var aqiData = {"北京": 90,"上海": 40};
 
-/**
- * 从用户输入中获取数据，向aqiData中增加一条数据
- * 然后渲染aqi-list列表，增加新增的数据
- */
-function addAqiData() {
-	var city=document.getElementById('aqi-city-input')
-	var aqiValue=document.getElementById('aqi-value-input')
+//向aqiData中增加一条数据
+function addAqiData(city,aqiValue) {
 	aqiData[city]=aqiValue
 }
 
-/**
- * 渲染aqi-table表格
- */
-function renderAqiList() {
+//在aqiData中删除一条数据
+function deleteAqiData(city){
+	delete aqiData[city]
+}
 
+//向aqi-table中增加一列内容
+function addAqiTableRow(city) {
+	var aqiTable=document.getElementById('aqi-table')	
+	var newRow=document.createElement('tr')
+	var tdCity=document.createElement('td')
+	var tdAqiValue=document.createElement('td')
+	var tdOperation=document.createElement('td')
+	var btnDelete=document.createElement('button')
+	btnDelete.innerText='删除'
+	btnDelete.addEventListener('click',delBtnHandle)
+	tdCity.innerText=city
+	tdAqiValue.innerText=aqiData[city]
+	tdOperation.appendChild(btnDelete)
+	newRow.appendChild(tdCity)
+	newRow.appendChild(tdAqiValue)
+	newRow.appendChild(tdOperation)
+	aqiTable.appendChild(newRow)
 }
 
 /**
@@ -30,24 +35,30 @@ function renderAqiList() {
  * 获取用户输入，更新数据，并进行页面呈现的更新
  */
 function addBtnHandle() {
-	addAqiData();
-	renderAqiList();
+	var city=document.getElementById('aqi-city-input').value
+	var aqiValue=document.getElementById('aqi-value-input').value
+	addAqiData(city,aqiValue)
+	addAqiTableRow(city)
 }
 
 /**
  * 点击各个删除按钮的时候的处理逻辑
  * 获取哪个城市数据被删，删除数据，更新表格显示
  */
-function delBtnHandle() {
-  // do sth.
-
-	renderAqiList();
+function delBtnHandle(sender) {
+	var cityRow=sender.target.parentElement.parentElement
+	var city=cityRow.children[0].innerText
+  	deleteAqiData(city)
+  	var aqiTable=document.getElementById('aqi-table')
+  	aqiTable.removeChild(cityRow)
 }
 
 function init() {
-	var vtnAdd=
-  // 想办法给aqi-table中的所有删除按钮绑定事件，触发delBtnHandle函数
-
+	var btnAdd=document.getElementById('add-btn')
+	btnAdd.addEventListener('click',addBtnHandle)
+	for(var city in aqiData){
+		addAqiTableRow(city)
+	}
 }
 
 init();

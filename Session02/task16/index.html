@@ -3,28 +3,34 @@
   <head>
     <meta charset="utf-8">
     <title>Task 16</title>
-    <script src="task16.js"></script>
+    <style type="text/css">
+      div{
+        padding: 10px;
+      }
+      table{
+        margin-left: 15px;
+        text-align: center;
+        line-height: 150%;
+        border:1px solid #666;
+      }
+      td{
+        border:1px solid #666;
+        padding: 10px;
+      }
+    </style>
   </head>
 <body>
 
   <div>
-    <label>城市名称：<input id="aqi-city-input" type="text"></label><br>
-    <label>空气质量指数：<input id="aqi-value-input" type="text"></label><br>
-    <button id="add-btn">确认添加</button>
+    <div> <label>城市名称：<input id="aqi-city-input" type="text"></label></div>
+    <div> <label>空气质量指数：<input id="aqi-value-input" type="text"></label></div>
+    <div><button id="add-btn">确认添加</button></div>
   </div>
-  <table id="aqi-table">
-  <!-- 
+  <table id="aqi-table" cellspacing="0">
     <tr>
       <td>城市</td><td>空气质量</td><td>操作</td>
     </tr>
-    <tr>
-      <td>北京</td><td>90</td><td><button>删除</button></td>
-    </tr>
-    <tr>
-      <td>北京</td><td>90</td><td><button>删除</button></td>
-    </tr>
-   -->
   </table>
-
+  <script src="task16.js"></script>
 </body>
 </html>
