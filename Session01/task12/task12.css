@@ -77,9 +77,9 @@ a{
 	#btnImg1:hover ~ .imgContainer{animation: ma1 2s ease-out};
 	#btnImg2:hover ~ .imgContainer{animation: ma2 2s ease-out};
 	#btnImg3:hover ~ .imgContainer{animation: ma3 2s ease-out};
-	@keyframes ma1 {50%,100%{margin-left:0;} }  
-    @keyframes ma2 {50%,100%{margin-left:-100%;}}  
-    @keyframes ma3 {50%,100%{margin-left:-200%;}}  
+	@keyframes ma1 {0%{margin-left:-300%} 100%{margin-left:0;} }  
+    @keyframes ma2 {0%{margin-left:-300%} 100%{margin-left:-100%;}}  
+    @keyframes ma3 {0%{margin-left:-300%} 100%{margin-left:-200%;}}  
 
 
 .imgContainer{
