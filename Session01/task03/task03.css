@@ -3,9 +3,14 @@ body{
 	font-family: "微软雅黑"
 }
 
-/* to disable user agent stylesheet on p label */
+/* to disable Chrome user agent stylesheet on p label */
 p{
 	-webkit-margin-before: 0;
+}
+
+img{
+	width: 80px;
+	height: 80px;
 }
 
 .container{

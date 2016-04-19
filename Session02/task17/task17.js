@@ -7,6 +7,7 @@ function getDateStr(dat) {
   d = d < 10 ? '0' + d : d;
   return y + '-' + m + '-' + d;
 }
+
 function randomBuildData(seed) {
   var returnData = {};
   var dat = new Date("2016-01-01");

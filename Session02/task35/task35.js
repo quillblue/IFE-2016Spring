@@ -89,14 +89,61 @@ var block={
 	}
 }
 
-function excuteCommand(){
-	var command=document.getElementById('command').value
-	switch(command.split(' ')[0]){
-		case 'TUN':block.turn(command.split(' ')[1]);break;
-		case 'GO':block.mov(undefined,command.split(' ')[1]);break;
-		case 'TRA':block.mov(command.split(' ')[1],command.split(' ')[2]);break;
-		case 'MOV':block.turnTo(command.split(' ')[1],function(){block.mov(command.split(' ')[1],command.split(' ')[2]);});break;
+function rowHasChanged(){
+	var input=document.getElementById('command')
+	var top=input.scrollTop
+	var arr=[]
+	var rowsCount=input.value.split('\n').length
+	for(var i=0;i<rowsCount;i++){
+		arr.push('<li class="lineNumber">'+(i+1)+'</li>')
 	}
+	var lineNumberContainer=document.getElementById('line-number-container')
+	lineNumberContainer.innerHTML=arr.join("")
+	lineNumberContainer.scrollTop=top
+}
+
+function commandInputOnScrollHandler(){
+	var input=document.getElementById('command')
+	var lineNumberContainer=document.getElementById('line-number-container')
+	lineNumberContainer.scrollTop=input.scrollTop
+}
+
+function validateCommand(command){
+	var commandPara=command.split(' ')
+	var directionDict=['LEF','RIG','TOP','BOT','BAC']
+	switch(commandPara[0]){
+		case 'TUN':if(commandPara[1]){return directionDict.indexOf(commandPara[1])>-1}else{return false};
+		case 'GO':if(commandPara[1]){return !isNaN(parseInt(commandPara[1]))}else{return true;}
+		case 'TRA':
+		case 'MOV':if(directionDict.indexOf(commandPara[1])>-1){return !(commandPara[2]&&isNaN(parseInt(commandPara[2])))}
+		default: return false;
+	}
+}
+
+function excuteCommand(){
+	var allCommands=document.getElementById('command').value.split('\n')
+	var i=0;
+	(function excuteCommandLine(){
+		if(i<allCommands.length){
+			var command=allCommands[i].trim().toUpperCase()
+			if(validateCommand(command)){
+				switch(command.split(' ')[0]){
+					case 'TUN':block.turn(command.split(' ')[1]);break;
+					case 'GO':block.mov(undefined,command.split(' ')[1]);break;
+					case 'TRA':block.mov(command.split(' ')[1],command.split(' ')[2]);break;
+					case 'MOV':block.turnTo(command.split(' ')[1],function(){block.mov(command.split(' ')[1],command.split(' ')[2]);});break;
+				}
+			}
+			else{
+				var errorLine=document.getElementById('line-number-container').children[i]
+				errorLine.style.backgroundColor='#f00'
+			}
+			setTimeout(function(){
+				i++
+				excuteCommandLine()
+			},500)
+		}
+	})()
 }
 
 function init(){
@@ -105,6 +152,9 @@ function init(){
 	block.init(board,5,5)
 	var btnExcute=document.getElementById('btn-excute')
 	btnExcute.addEventListener('click',excuteCommand)
+	var input=document.getElementById('command')
+	input.addEventListener('keyup',rowHasChanged)
+	input.addEventListener('scroll',commandInputOnScrollHandler)
 }
 
 init()

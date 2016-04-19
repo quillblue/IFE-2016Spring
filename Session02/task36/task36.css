@@ -65,6 +65,16 @@ ol{
     transition: all .5s;
 }
 
+.wall {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    background-color: #ccc;
+    z-index: 2;
+    transition: all .5s;
+}
+
 #line-number-container{
 	position: absolute;
 	width: 20px;
